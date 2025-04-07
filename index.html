@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generate Tournament</title>
+    <link rel="stylesheet" type="text/css" href="./styles/styles.css" />
+    <!-- <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    /> -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script src="./script.mjs" type="module"></script>
+  </head>
+  <body>
+    <!-- <a href="./pages/tournament.html">Saved Dishes</a> -->
+    <div id="playersNumberBox">
+      <button class="changePlayerNumber" id="subtractPlayer">-</button>
+      <div class="playersCounter">
+        <h3 id="playersNumber"></h3>
+      </div>
+      <button class="changePlayerNumber" id="addPlayer">+</button>
+    </div>
+    <div id="playersInputBox"></div>
+    <div class="errorBox">
+      <p class="error" id="canNotBeEmpty" style="display: none">
+        <b> The player name can not be empty </b>
+      </p>
+    </div>
+    <div>
+      <button class="mainBtn" id="generateTournament">
+        Generate Tournament
+      </button>
+    </div>
+  </body>
+</html>

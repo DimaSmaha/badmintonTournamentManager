@@ -1,0 +1,36 @@
+#playersNumberBox {
+  display: flex;
+  align-items: center;
+}
+.changePlayerNumber {
+  width: 35px;
+  height: 35px;
+  background-color: blue;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  text-align: center;
+  border: 2px solid black;
+}
+.playersCounter {
+  width: 35px;
+  height: 35px;
+  border: 2px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 4px;
+  box-sizing: border-box;
+}
+.mainBtn {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  font-size: x-large;
+  background-color: lawngreen;
+}
+#playersInputBox {
+  margin-top: 16px;
+}
+.playerNameInput {
+  margin-bottom: 8px;
+}
