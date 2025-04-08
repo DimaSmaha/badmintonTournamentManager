@@ -2,7 +2,7 @@ Webapp for tracking the progress of the badminton tournament
 
 Main features to do
 
-- Write the number of users that will take part in a game
+- Write the number of users that will take part in a game - V
 - \*Add,delete user during tournament
 - Rename user
 - Generate the pairs of the user matches

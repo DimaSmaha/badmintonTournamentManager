@@ -1,4 +1,6 @@
 import locators from "../const/locators.mjs";
+import { showError } from "../const/showError.mjs";
+import { setCookie } from "./cookies/cookies.mjs";
 
 function generatePlayerInput() {
   locators.playersInputBox.insertAdjacentHTML(
@@ -28,13 +30,14 @@ locators.subtractPlayer.addEventListener("click", () => {
   removePlayerInput();
 });
 
+locators.generateTournamentBtn.addEventListener("click", () => {
+  getPlayersInputsValues();
+});
+
 function addNewPlayerInput() {
   const getInputNum = locators.playersInputBox.childElementCount;
   if (getInputNum >= 256) {
-    locators.notMoreThan256.style.display = "inline";
-    setTimeout(() => {
-      locators.notMoreThan256.style.display = "none";
-    }, 3000);
+    showError(locators.notMoreThan256);
   }
 
   if (getInputNum < 256) {
@@ -47,14 +50,29 @@ function removePlayerInput() {
   const getInputNum = locators.playersInputBox.childElementCount;
   const getLastInput = locators.playersInputBox.children[getInputNum - 1];
   if (getInputNum <= 2) {
-    locators.notLessThan2.style.display = "inline";
-    setTimeout(() => {
-      locators.notLessThan2.style.display = "none";
-    }, 3000);
+    showError(locators.notLessThan2);
   }
 
   if (getInputNum > 2) {
     getLastInput.remove();
     updatePlayersNumber();
   }
+}
+
+function getPlayersInputsValues() {
+  const getInputNum = locators.playersInputBox.childElementCount;
+
+  const inputValuesArr = [];
+  for (let i = 0; i < getInputNum; i++) {
+    const inputValue = locators.playersInputBox.children[i].value;
+
+    if (inputValue.trim() == "") {
+      showError(locators.canNotBeEmpty);
+      return;
+    }
+
+    inputValuesArr.push(inputValue);
+  }
+
+  setCookie("tournamentPlayers", inputValuesArr);
 }
