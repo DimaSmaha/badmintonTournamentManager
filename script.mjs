@@ -1,4 +1,10 @@
-import { generateInitialInputs } from "./modules/playerInputs.mjs";
+import locators from "./const/locators.mjs";
+import {
+  addNewPlayerInput,
+  generateInitialInputs,
+  getPlayersInputsValues,
+  removePlayerInput,
+} from "./modules/playerInputs.mjs";
 
 window.onload = function () {
   if (document.title == "Generate Tournament") {
@@ -8,8 +14,16 @@ window.onload = function () {
   }
 };
 
-// if (document.title == "Dish Calorie Counter") {
-//   loc.getDishCaloriesBtn.addEventListener("click", () => {
-//     renderDishNutritions();
-//   });
-// }
+if (document.title == "Generate Tournament") {
+  locators.addPlayer.addEventListener("click", () => {
+    addNewPlayerInput();
+  });
+
+  locators.subtractPlayer.addEventListener("click", () => {
+    removePlayerInput();
+  });
+
+  locators.generateTournamentBtn.addEventListener("click", () => {
+    getPlayersInputsValues();
+  });
+}

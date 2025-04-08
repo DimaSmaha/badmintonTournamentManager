@@ -7,6 +7,8 @@ class Locators {
     this.canNotBeEmpty = document.querySelector("#canNotBeEmpty");
     this.notLessThan2 = document.querySelector("#notLessThan2");
     this.notMoreThan256 = document.querySelector("#notMoreThan256");
+    this.canNotBeEmpty = document.querySelector("#canNotBeEmpty");
+    this.generateTournamentBtn = document.querySelector("#generateTournament");
   }
 }
 

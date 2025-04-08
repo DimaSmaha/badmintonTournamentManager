@@ -22,19 +22,7 @@ export function generateInitialInputs() {
   updatePlayersNumber();
 }
 
-locators.addPlayer.addEventListener("click", () => {
-  addNewPlayerInput();
-});
-
-locators.subtractPlayer.addEventListener("click", () => {
-  removePlayerInput();
-});
-
-locators.generateTournamentBtn.addEventListener("click", () => {
-  getPlayersInputsValues();
-});
-
-function addNewPlayerInput() {
+export function addNewPlayerInput() {
   const getInputNum = locators.playersInputBox.childElementCount;
   if (getInputNum >= 256) {
     showError(locators.notMoreThan256);
@@ -46,7 +34,7 @@ function addNewPlayerInput() {
   }
 }
 
-function removePlayerInput() {
+export function removePlayerInput() {
   const getInputNum = locators.playersInputBox.childElementCount;
   const getLastInput = locators.playersInputBox.children[getInputNum - 1];
   if (getInputNum <= 2) {
@@ -59,7 +47,7 @@ function removePlayerInput() {
   }
 }
 
-function getPlayersInputsValues() {
+export function getPlayersInputsValues() {
   const getInputNum = locators.playersInputBox.childElementCount;
 
   const inputValuesArr = [];
@@ -75,4 +63,5 @@ function getPlayersInputsValues() {
   }
 
   setCookie("tournamentPlayers", inputValuesArr);
+  window.location.replace("../pages/tournament.html");
 }
