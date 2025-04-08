@@ -10,6 +10,8 @@ class Locators {
     this.canNotBeEmpty = document.querySelector("#canNotBeEmpty");
     this.generateTournamentBtn = document.querySelector("#generateTournament");
     this.navbar = document.querySelector(".navbar");
+    this.playersTableRows = document.querySelector("#playersTableRows");
+    this.playersMatches = document.querySelector("#playersMatches");
   }
 }
 

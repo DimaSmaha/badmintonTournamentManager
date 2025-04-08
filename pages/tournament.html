@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tournament</title>
+    <link rel="stylesheet" type="text/css" href="../styles/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script src="../script.mjs" type="module"></script>
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="../index.html">Reset Tournament || Home</a>
+    </div>
+    <div id="playersScoreboard">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 20px">№</th>
+            <th style="width: 120px">Name</th>
+            <th style="width: 120px">Score</th>
+            <th style="width: 120px">Points Scored</th>
+            <th style="width: 120px">Points Conceded</th>
+          </tr>
+        </thead>
+        <tbody id="playersTableRows"></tbody>
+      </table>
+    </div>
+    <div id="playersMatches"></div>
+  </body>
+</html>
