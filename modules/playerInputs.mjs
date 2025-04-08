@@ -29,18 +29,27 @@ locators.subtractPlayer.addEventListener("click", () => {
 });
 
 function addNewPlayerInput() {
-  //set no more then 256
-  generatePlayerInput();
-  updatePlayersNumber();
+  const getInputNum = locators.playersInputBox.childElementCount;
+  if (getInputNum >= 256) {
+    locators.notMoreThan256.style.display = "inline";
+    setTimeout(() => {
+      locators.notMoreThan256.style.display = "none";
+    }, 3000);
+  }
+
+  if (getInputNum < 256) {
+    generatePlayerInput();
+    updatePlayersNumber();
+  }
 }
 
 function removePlayerInput() {
   const getInputNum = locators.playersInputBox.childElementCount;
   const getLastInput = locators.playersInputBox.children[getInputNum - 1];
   if (getInputNum <= 2) {
-    console.log("can not delete");
+    locators.notLessThan2.style.display = "inline";
     setTimeout(() => {
-      //   locators.notLessThan2.st; // write errors
+      locators.notLessThan2.style.display = "none";
     }, 3000);
   }
 

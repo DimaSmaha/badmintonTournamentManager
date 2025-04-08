@@ -33,8 +33,11 @@
 }
 .playerNameInput {
   margin-bottom: 8px;
+  display: block;
 }
 .error {
-  margin-top: 0px;
   color: red;
+}
+.errorBox {
+  margin-top: 8px;
 }
