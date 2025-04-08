@@ -1,6 +1,19 @@
 import locators from "../const/locators.mjs";
 import { showError } from "../const/showError.mjs";
-import { setCookie } from "./cookies/cookies.mjs";
+import { getCookie, setCookie } from "./cookies/cookies.mjs";
+
+export function continueTournamentIfExists() {
+  console.log(getCookie("tournamentPlayers"));
+
+  if (getCookie("tournamentPlayers")) {
+    locators.navbar.insertAdjacentHTML(
+      "beforeend",
+      `
+    <a href="./pages/tournament.html">Continue Tournament</a>
+    `
+    );
+  }
+}
 
 function generatePlayerInput() {
   locators.playersInputBox.insertAdjacentHTML(

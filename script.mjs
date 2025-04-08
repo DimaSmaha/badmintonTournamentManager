@@ -1,6 +1,7 @@
 import locators from "./const/locators.mjs";
 import {
   addNewPlayerInput,
+  continueTournamentIfExists,
   generateInitialInputs,
   getPlayersInputsValues,
   removePlayerInput,
@@ -8,6 +9,7 @@ import {
 
 window.onload = function () {
   if (document.title == "Generate Tournament") {
+    continueTournamentIfExists();
     generateInitialInputs();
   }
   if (document.title == "Saved Dishes") {
