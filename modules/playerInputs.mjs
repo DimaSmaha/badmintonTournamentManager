@@ -71,6 +71,7 @@ export function getPlayersInputsValues() {
       showError(locators.canNotBeEmpty);
       return;
     }
+    //check that we dont have the same player names
 
     inputValuesArr.push(inputValue);
   }

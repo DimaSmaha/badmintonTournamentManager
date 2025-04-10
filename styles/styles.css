@@ -76,6 +76,7 @@ th {
 }
 
 .match {
+  width: 400px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -84,7 +85,6 @@ th {
   border: 2px solid #ccc;
   border-radius: 8px;
   font-family: sans-serif;
-  width: fit-content;
   gap: 16px;
   margin-top: 8px;
 }
@@ -92,6 +92,12 @@ th {
 .score {
   font-weight: bold;
   font-size: 18px;
+}
+.player1,
+.player2,
+.score,
+.editBtn {
+  width: 100px;
 }
 
 .editBtn {
