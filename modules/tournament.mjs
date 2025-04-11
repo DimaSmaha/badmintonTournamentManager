@@ -11,10 +11,10 @@ export function generateTable() {
       `
     <tr>
        <td>${i + 1}</td>
-       <td>${playersArr[i]}</td>
-       <td>${0}</td>
-       <td>${0}</td>
-       <td>${0}</td>
+       <td id='${playersArr[i]}'>${playersArr[i]}</td>
+       <td class='playerMatchScore'>${0}</td>
+       <td class='pointsScore'>${0}</td>
+       <td class='pointsConceded'>${0}</td>
     </tr>
     `
     );
@@ -194,8 +194,9 @@ function editMatchScoreById(matchId) {
     .querySelector(`#match_${matchId}`)
     .querySelector(".playerTwoScore").innerHTML = playerTwoScore;
 
-  updateMatchScore(matchId, playerOneScore, playerTwoScore);
-  console.log(updateMatchScore(matchId, playerOneScore, playerTwoScore));
+  let infoForTable = updateMatchScore(matchId, playerOneScore, playerTwoScore);
+  console.log(infoForTable);
+  updateTable(infoForTable);
 }
 
 function updateMatchScore(matchId, playerOneScore, playerTwoScore) {
@@ -207,7 +208,7 @@ function updateMatchScore(matchId, playerOneScore, playerTwoScore) {
     .querySelector(`#match_${matchId}`)
     .querySelector(".player2").innerText;
 
-  if (playerOneScore > playerTwoScore) {
+  if (parseInt(playerOneScore) > parseInt(playerTwoScore)) {
     return {
       playerOneName,
       playerTwoName,
@@ -218,18 +219,18 @@ function updateMatchScore(matchId, playerOneScore, playerTwoScore) {
     };
   }
 
-  if (playerOneScore < playerTwoScore) {
+  if (parseInt(playerOneScore) < parseInt(playerTwoScore)) {
     return {
       playerOneName,
       playerTwoName,
-      playerOnePoints: "3",
-      playerTwoPoints: "0",
+      playerOnePoints: "0",
+      playerTwoPoints: "3",
       playerOneScore,
       playerTwoScore,
     };
   }
 
-  if (playerOneScore == playerTwoScore) {
+  if (parseInt(playerOneScore) == parseInt(playerTwoScore)) {
     return {
       playerOneName,
       playerTwoName,
@@ -241,4 +242,37 @@ function updateMatchScore(matchId, playerOneScore, playerTwoScore) {
   }
 }
 
-// function updateTable(){}
+function updateTable(infoForTable) {
+  const data = infoForTable;
+  console.log(data);
+
+  const getPlayerOneCell = document
+    .querySelector("#playersScoreboard")
+    .querySelector(`#${data.playerOneName}`);
+  const getPlayerOneScore = getPlayerOneCell.nextElementSibling;
+  const getPlayerOnePointsScored =
+    getPlayerOneCell.nextElementSibling.nextElementSibling;
+  const getPlayerOnePointsCondenced =
+    getPlayerOneCell.nextElementSibling.nextElementSibling.nextElementSibling;
+
+  const getPlayerTwoCell = document
+    .querySelector("#playersScoreboard")
+    .querySelector(`#${data.playerTwoName}`);
+
+  const getPlayerTwoScore = getPlayerTwoCell.nextElementSibling;
+  const getPlayerTwoPointsScored =
+    getPlayerTwoCell.nextElementSibling.nextElementSibling;
+  const getPlayerTwoPointsCondenced =
+    getPlayerTwoCell.nextElementSibling.nextElementSibling.nextElementSibling;
+
+  const setNewScore = (el, newScore) =>
+    (el.innerText = parseInt(el.innerText) + parseInt(newScore));
+
+  setNewScore(getPlayerOneScore, data.playerOnePoints);
+  setNewScore(getPlayerOnePointsScored, data.playerOneScore);
+  setNewScore(getPlayerOnePointsCondenced, data.playerTwoScore);
+
+  setNewScore(getPlayerTwoScore, data.playerTwoPoints);
+  setNewScore(getPlayerTwoPointsScored, data.playerTwoScore);
+  setNewScore(getPlayerTwoPointsCondenced, data.playerOneScore);
+}
