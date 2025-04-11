@@ -95,16 +95,35 @@ th {
 }
 .player1,
 .player2,
-.score,
-.editBtn {
+.score {
   width: 100px;
 }
 
 .editBtn {
   padding: 6px 12px;
-  background-color: #007bff;
+  background-color: #0000ff;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+.cancelBtn {
+  background-color: red;
+  border: solid 2px;
+  display: none;
+  width: 35px;
+  height: 35px;
+  /* margin-bottom: 16px; */
+}
+.acceptBtn {
+  background-color: lime;
+  border: solid 2px;
+  display: none;
+  width: 35px;
+  height: 35px;
+  /* margin-bottom: 16px; */
+}
+.scoreInput {
+  height: 20px;
+  width: 20px;
 }

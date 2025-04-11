@@ -1,3 +1,4 @@
+import { editBtnSvg } from "../const/editSvg.mjs";
 import locators from "../const/locators.mjs";
 import { getCookie } from "./cookies/cookies.mjs";
 
@@ -54,19 +55,29 @@ export function generateMatches() {
     const player = playersArr[i];
 
     for (let ii = i + 1; ii < playersArr.length; ii++) {
+      let getId = locators.playersMatches.children.length;
+
       locators.playersMatches.insertAdjacentHTML(
         "beforeend",
         `
-            <div class="match">
+            <div class="match" id="match_${getId}">
                 <span class="player1">${player}</span>
-                <div class="score">0 - 0</div>
+                <div class="score">
+                  <span class="playerOneScore">0</span>
+                  <span> - </span>
+                  <span class="playerTwoScore">0</span>
+                </div>
                 <span class="player2">${playersArr[ii]}</span>
-                <button class="editBtn">Edit</button>
-            </div>
+                <button class="editBtn" id="editMatch_${getId}">${editBtnSvg}</button>
+                <button class='acceptBtn' id="acceptEditMatch_${getId}">V</button>
+                <button class='cancelBtn' id="closeEditMatch_${getId}">X</button>
+             </div>
           `
       );
     }
   }
+
+  renderMatchActionButtons();
 
   // I firtly thought about complicated sorting to player had 1 match break
   // but then I realized that we need to include a lot of excess logic
@@ -103,6 +114,131 @@ export function randomMatchSorting() {
   }, 0);
 }
 
-// function updateTable(){}
+function renderMatchActionButtons() {
+  let getId = locators.playersMatches.children.length;
+  for (let i = 0; i < getId; i++) {
+    document.querySelector(`#editMatch_${i}`).addEventListener("click", () => {
+      document.getElementById(`editMatch_${i}`).style.display = "none";
+      document.getElementById(`acceptEditMatch_${i}`).style.display = "block";
+      document.getElementById(`closeEditMatch_${i}`).style.display = "block";
 
-// function updateMatchScore()
+      document
+        .querySelector(`#match_${i}`)
+        .querySelector(".playerOneScore").innerHTML = "";
+      document
+        .querySelector(`#match_${i}`)
+        .querySelector(".playerTwoScore").innerHTML = "";
+
+      document
+        .querySelector(`#match_${i}`)
+        .querySelector(".playerOneScore")
+        .insertAdjacentHTML(
+          "beforeend",
+          `
+            <input class="scoreInput">
+          `
+        );
+
+      document
+        .querySelector(`#match_${i}`)
+        .querySelector(".playerTwoScore")
+        .insertAdjacentHTML(
+          "beforeend",
+          `
+            <input class="scoreInput">
+          `
+        );
+    });
+
+    document
+      .querySelector(`#closeEditMatch_${i}`)
+      .addEventListener("click", () => {
+        document.getElementById(`editMatch_${i}`).style.display = "block";
+        document.getElementById(`acceptEditMatch_${i}`).style.display = "none";
+        document.getElementById(`closeEditMatch_${i}`).style.display = "none";
+
+        document
+          .querySelector(`#match_${i}`)
+          .querySelector(".playerOneScore").innerHTML = "0";
+        document
+          .querySelector(`#match_${i}`)
+          .querySelector(".playerTwoScore").innerHTML = "0";
+      });
+
+    document
+      .querySelector(`#acceptEditMatch_${i}`)
+      .addEventListener("click", () => {
+        editMatchScoreById(i);
+        document.getElementById(`editMatch_${i}`).style.display = "block";
+        document.getElementById(`acceptEditMatch_${i}`).style.display = "none";
+        document.getElementById(`closeEditMatch_${i}`).style.display = "none";
+      });
+  }
+}
+
+function editMatchScoreById(matchId) {
+  let playerOneScore = document
+    .querySelector(`#match_${matchId}`)
+    .querySelector(".playerOneScore")
+    .querySelector(".scoreInput").value;
+
+  let playerTwoScore = document
+    .querySelector(`#match_${matchId}`)
+    .querySelector(".playerTwoScore")
+    .querySelector(".scoreInput").value;
+
+  document
+    .querySelector(`#match_${matchId}`)
+    .querySelector(".playerOneScore").innerHTML = playerOneScore;
+  document
+    .querySelector(`#match_${matchId}`)
+    .querySelector(".playerTwoScore").innerHTML = playerTwoScore;
+
+  updateMatchScore(matchId, playerOneScore, playerTwoScore);
+  console.log(updateMatchScore(matchId, playerOneScore, playerTwoScore));
+}
+
+function updateMatchScore(matchId, playerOneScore, playerTwoScore) {
+  let playerOneName = document
+    .querySelector(`#match_${matchId}`)
+    .querySelector(".player1").innerText;
+
+  let playerTwoName = document
+    .querySelector(`#match_${matchId}`)
+    .querySelector(".player2").innerText;
+
+  if (playerOneScore > playerTwoScore) {
+    return {
+      playerOneName,
+      playerTwoName,
+      playerOnePoints: "3",
+      playerTwoPoints: "0",
+      playerOneScore,
+      playerTwoScore,
+    };
+  }
+
+  if (playerOneScore < playerTwoScore) {
+    return {
+      playerOneName,
+      playerTwoName,
+      playerOnePoints: "3",
+      playerTwoPoints: "0",
+      playerOneScore,
+      playerTwoScore,
+    };
+  }
+
+  if (playerOneScore == playerTwoScore) {
+    return {
+      playerOneName,
+      playerTwoName,
+      playerOnePoints: "1",
+      playerTwoPoints: "1",
+      playerOneScore,
+      playerTwoScore,
+    };
+  }
+}
+
+// function updateTable(){}
