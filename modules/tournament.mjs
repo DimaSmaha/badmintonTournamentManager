@@ -7,9 +7,9 @@ export function generateTable() {
 
   for (let i = 0; i < playersArr.length; i++) {
     locators.playersTableRows.insertAdjacentHTML(
-      "beforebegin",
+      "beforeend",
       `
-    <tr>
+    <tr id='row_${i + 1}'>
        <td>${i + 1}</td>
        <td id='${playersArr[i]}'>${playersArr[i]}</td>
        <td class='playerMatchScore'>${0}</td>
@@ -21,6 +21,27 @@ export function generateTable() {
   }
 }
 
+function sortTable() {
+  const tableRows = document
+    .querySelector("#playersScoreboard")
+    .querySelector("tbody")
+    .querySelectorAll("tr");
+  const tableRowsArr = [...tableRows];
+  console.log(tableRowsArr);
+
+  const sortedTableRows = tableRowsArr.sort(
+    (a, b) => parseInt(b.cells[2].innerText) - parseInt(a.cells[2].innerText)
+  );
+
+  console.log(sortedTableRows);
+
+  setTimeout(() => {
+    document
+      .querySelector("#playersScoreboard")
+      .querySelector("tbody")
+      .replaceChildren(...sortedTableRows);
+  }, 0);
+}
 // Generate for 2 matches tournament, with return match
 // export function generateMatches() {
 //   const playersArr = getCookie("tournamentPlayers");
@@ -413,4 +434,6 @@ function updateTable(infoForTable) {
   setNewScore(getPlayerTwoScore, data.playerTwoPoints);
   setNewScore(getPlayerTwoPointsScored, data.playerTwoScore);
   setNewScore(getPlayerTwoPointsCondenced, data.playerOneScore);
+
+  sortTable();
 }
