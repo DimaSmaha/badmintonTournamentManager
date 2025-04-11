@@ -310,41 +310,6 @@ function updateMatchScore(matchId, playerOneScore, playerTwoScore) {
   }
 }
 
-function updateTable(infoForTable) {
-  const data = infoForTable;
-  console.log(data);
-
-  const getPlayerOneCell = document
-    .querySelector("#playersScoreboard")
-    .querySelector(`#${data.playerOneName}`);
-  const getPlayerOneScore = getPlayerOneCell.nextElementSibling;
-  const getPlayerOnePointsScored =
-    getPlayerOneCell.nextElementSibling.nextElementSibling;
-  const getPlayerOnePointsCondenced =
-    getPlayerOneCell.nextElementSibling.nextElementSibling.nextElementSibling;
-
-  const getPlayerTwoCell = document
-    .querySelector("#playersScoreboard")
-    .querySelector(`#${data.playerTwoName}`);
-
-  const getPlayerTwoScore = getPlayerTwoCell.nextElementSibling;
-  const getPlayerTwoPointsScored =
-    getPlayerTwoCell.nextElementSibling.nextElementSibling;
-  const getPlayerTwoPointsCondenced =
-    getPlayerTwoCell.nextElementSibling.nextElementSibling.nextElementSibling;
-
-  const setNewScore = (el, newScore) =>
-    (el.innerText = parseInt(el.innerText) + parseInt(newScore));
-
-  setNewScore(getPlayerOneScore, data.playerOnePoints);
-  setNewScore(getPlayerOnePointsScored, data.playerOneScore);
-  setNewScore(getPlayerOnePointsCondenced, data.playerTwoScore);
-
-  setNewScore(getPlayerTwoScore, data.playerTwoPoints);
-  setNewScore(getPlayerTwoPointsScored, data.playerTwoScore);
-  setNewScore(getPlayerTwoPointsCondenced, data.playerOneScore);
-}
-
 function resetMatchScoreById(matchId) {
   let infoForTable = updateResetMatchScoreById(matchId);
   updateTable(infoForTable);
@@ -413,4 +378,39 @@ function updateResetMatchScoreById(matchId) {
       playerTwoScore,
     };
   }
+}
+
+function updateTable(infoForTable) {
+  const data = infoForTable;
+  console.log(data);
+
+  const getPlayerOneCell = document
+    .querySelector("#playersScoreboard")
+    .querySelector(`#${data.playerOneName}`);
+  const getPlayerOneScore = getPlayerOneCell.nextElementSibling;
+  const getPlayerOnePointsScored =
+    getPlayerOneCell.nextElementSibling.nextElementSibling;
+  const getPlayerOnePointsCondenced =
+    getPlayerOneCell.nextElementSibling.nextElementSibling.nextElementSibling;
+
+  const getPlayerTwoCell = document
+    .querySelector("#playersScoreboard")
+    .querySelector(`#${data.playerTwoName}`);
+
+  const getPlayerTwoScore = getPlayerTwoCell.nextElementSibling;
+  const getPlayerTwoPointsScored =
+    getPlayerTwoCell.nextElementSibling.nextElementSibling;
+  const getPlayerTwoPointsCondenced =
+    getPlayerTwoCell.nextElementSibling.nextElementSibling.nextElementSibling;
+
+  const setNewScore = (el, newScore) =>
+    (el.innerText = parseInt(el.innerText) + parseInt(newScore));
+
+  setNewScore(getPlayerOneScore, data.playerOnePoints);
+  setNewScore(getPlayerOnePointsScored, data.playerOneScore);
+  setNewScore(getPlayerOnePointsCondenced, data.playerTwoScore);
+
+  setNewScore(getPlayerTwoScore, data.playerTwoPoints);
+  setNewScore(getPlayerTwoPointsScored, data.playerTwoScore);
+  setNewScore(getPlayerTwoPointsCondenced, data.playerOneScore);
 }
