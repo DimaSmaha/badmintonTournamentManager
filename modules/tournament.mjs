@@ -71,6 +71,9 @@ export function generateMatches() {
                 <button class="editBtn" id="editMatch_${getId}">${editBtnSvg}</button>
                 <button class='acceptBtn' id="acceptEditMatch_${getId}">V</button>
                 <button class='cancelBtn' id="closeEditMatch_${getId}">X</button>
+                <button class='cancelBtn' id="resetMatch_${getId}">Res</button>
+                <button class='acceptBtn' id="acceptResetMatch_${getId}">V</button>
+                <button class='cancelBtn' id="cancelResetMatch_${getId}">X</button>
              </div>
           `
       );
@@ -184,9 +187,34 @@ function renderMatchActionButtons() {
       .querySelector(`#acceptEditMatch_${i}`)
       .addEventListener("click", () => {
         editMatchScoreById(i);
-        document.getElementById(`editMatch_${i}`).style.display = "block";
+        document.getElementById(`editMatch_${i}`).style.display = "none";
         document.getElementById(`acceptEditMatch_${i}`).style.display = "none";
         document.getElementById(`closeEditMatch_${i}`).style.display = "none";
+        document.getElementById(`resetMatch_${i}`).style.display = "block";
+      });
+
+    document.querySelector(`#resetMatch_${i}`).addEventListener("click", () => {
+      document.getElementById(`resetMatch_${i}`).style.display = "none";
+      document.getElementById(`acceptResetMatch_${i}`).style.display = "block";
+      document.getElementById(`cancelResetMatch_${i}`).style.display = "block";
+    });
+
+    document
+      .querySelector(`#cancelResetMatch_${i}`)
+      .addEventListener("click", () => {
+        document.getElementById(`resetMatch_${i}`).style.display = "block";
+        document.getElementById(`acceptResetMatch_${i}`).style.display = "none";
+        document.getElementById(`cancelResetMatch_${i}`).style.display = "none";
+      });
+
+    document
+      .querySelector(`#acceptResetMatch_${i}`)
+      .addEventListener("click", () => {
+        resetMatchScoreById(i);
+        document.getElementById(`editMatch_${i}`).style.display = "block";
+        document.getElementById(`resetMatch_${i}`).style.display = "none";
+        document.getElementById(`acceptResetMatch_${i}`).style.display = "none";
+        document.getElementById(`cancelResetMatch_${i}`).style.display = "none";
       });
   }
 }
@@ -194,14 +222,15 @@ function renderMatchActionButtons() {
 function editMatchScoreById(matchId) {
   // Check if score is 0 - 0 and then add some other logic
   // And then just update the table not create a new score
+
   // Decided to reset score for match and recreate it
 
-  let playerOneInitialScore = document
-    .querySelector(`#match_${matchId}`)
-    .querySelector(".playerOneScore").innerText;
-  let playerTwoInitialScore = document
-    .querySelector(`#match_${matchId}`)
-    .querySelector(".playerOneScore").innerText;
+  // let playerOneInitialScore = document
+  //   .querySelector(`#match_${matchId}`)
+  //   .querySelector(".playerOneScore").innerText;
+  // let playerTwoInitialScore = document
+  //   .querySelector(`#match_${matchId}`)
+  //   .querySelector(".playerOneScore").innerText;
 
   // if (playerOneInitialScore == 0 && playerTwoInitialScore == 0) {
   let playerOneScore = document
@@ -234,7 +263,6 @@ function editMatchScoreById(matchId) {
     .remove();
 
   let infoForTable = updateMatchScore(matchId, playerOneScore, playerTwoScore);
-  console.log(infoForTable);
   updateTable(infoForTable);
   // }
 }
@@ -315,4 +343,74 @@ function updateTable(infoForTable) {
   setNewScore(getPlayerTwoScore, data.playerTwoPoints);
   setNewScore(getPlayerTwoPointsScored, data.playerTwoScore);
   setNewScore(getPlayerTwoPointsCondenced, data.playerOneScore);
+}
+
+function resetMatchScoreById(matchId) {
+  let infoForTable = updateResetMatchScoreById(matchId);
+  updateTable(infoForTable);
+
+  document
+    .querySelector(`#match_${matchId}`)
+    .querySelector(".playerOneScore").innerHTML = 0;
+  document
+    .querySelector(`#match_${matchId}`)
+    .querySelector(".playerTwoScore").innerHTML = 0;
+  document.getElementById(`editMatch_${matchId}`).style.display = "block";
+}
+
+function updateResetMatchScoreById(matchId) {
+  let playerOneName = document
+    .querySelector(`#match_${matchId}`)
+    .querySelector(".player1").innerText;
+  let playerTwoName = document
+    .querySelector(`#match_${matchId}`)
+    .querySelector(".player2").innerText;
+  let playerOneScoreReset = document
+    .querySelector(`#match_${matchId}`)
+    .querySelector(".playerOneScore").innerText;
+  let playerTwoScoreReset = document
+    .querySelector(`#match_${matchId}`)
+    .querySelector(".playerTwoScore").innerText;
+
+  if (parseInt(playerOneScoreReset) > parseInt(playerTwoScoreReset)) {
+    const playerOneScore = -playerOneScoreReset;
+    const playerTwoScore = -playerTwoScoreReset;
+
+    return {
+      playerOneName,
+      playerTwoName,
+      playerOnePoints: -3,
+      playerTwoPoints: 0,
+      playerOneScore,
+      playerTwoScore,
+    };
+  }
+
+  if (parseInt(playerOneScoreReset) < parseInt(playerTwoScoreReset)) {
+    const playerOneScore = -playerOneScoreReset;
+    const playerTwoScore = -playerTwoScoreReset;
+
+    return {
+      playerOneName,
+      playerTwoName,
+      playerOnePoints: 0,
+      playerTwoPoints: -3,
+      playerOneScore,
+      playerTwoScore,
+    };
+  }
+
+  if (parseInt(playerOneScoreReset) == parseInt(playerTwoScoreReset)) {
+    const playerOneScore = -playerOneScoreReset;
+    const playerTwoScore = -playerTwoScoreReset;
+
+    return {
+      playerOneName,
+      playerTwoName,
+      playerOnePoints: -1,
+      playerTwoPoints: -1,
+      playerOneScore,
+      playerTwoScore,
+    };
+  }
 }
