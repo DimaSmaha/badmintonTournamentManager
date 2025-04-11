@@ -122,30 +122,36 @@ function renderMatchActionButtons() {
       document.getElementById(`acceptEditMatch_${i}`).style.display = "block";
       document.getElementById(`closeEditMatch_${i}`).style.display = "block";
 
-      document
+      const getPlayerOneScore = document
         .querySelector(`#match_${i}`)
-        .querySelector(".playerOneScore").innerHTML = "";
-      document
+        .querySelector(".playerOneScore");
+      const getPlayerTwoScore = document
         .querySelector(`#match_${i}`)
-        .querySelector(".playerTwoScore").innerHTML = "";
+        .querySelector(".playerTwoScore");
+
+      const getInitPlayerOneScore = parseInt(getPlayerOneScore.innerText);
+      const getInitialPlayerTwoScore = parseInt(getPlayerTwoScore.innerText);
+
+      getPlayerOneScore.style.display = "none";
+      getPlayerTwoScore.style.display = "none";
 
       document
         .querySelector(`#match_${i}`)
-        .querySelector(".playerOneScore")
+        .querySelector(".score")
         .insertAdjacentHTML(
-          "beforeend",
+          "afterbegin",
           `
-            <input class="scoreInput">
+            <input class="scoreInput playerOneScoreInput" value='${getInitPlayerOneScore}'>
           `
         );
 
       document
         .querySelector(`#match_${i}`)
-        .querySelector(".playerTwoScore")
+        .querySelector(".score")
         .insertAdjacentHTML(
           "beforeend",
           `
-            <input class="scoreInput">
+            <input class="scoreInput playerTwoScoreInput" value='${getInitialPlayerTwoScore}'>
           `
         );
     });
@@ -159,10 +165,19 @@ function renderMatchActionButtons() {
 
         document
           .querySelector(`#match_${i}`)
-          .querySelector(".playerOneScore").innerHTML = "0";
+          .querySelector(".playerOneScoreInput")
+          .remove();
         document
           .querySelector(`#match_${i}`)
-          .querySelector(".playerTwoScore").innerHTML = "0";
+          .querySelector(".playerTwoScoreInput")
+          .remove();
+
+        document
+          .querySelector(`#match_${i}`)
+          .querySelector(".playerOneScore").style.display = "";
+        document
+          .querySelector(`#match_${i}`)
+          .querySelector(".playerTwoScore").style.display = "";
       });
 
     document
@@ -177,15 +192,25 @@ function renderMatchActionButtons() {
 }
 
 function editMatchScoreById(matchId) {
+  // Check if score is 0 - 0 and then add some other logic
+  // And then just update the table not create a new score
+  // Decided to reset score for match and recreate it
+
+  let playerOneInitialScore = document
+    .querySelector(`#match_${matchId}`)
+    .querySelector(".playerOneScore").innerText;
+  let playerTwoInitialScore = document
+    .querySelector(`#match_${matchId}`)
+    .querySelector(".playerOneScore").innerText;
+
+  // if (playerOneInitialScore == 0 && playerTwoInitialScore == 0) {
   let playerOneScore = document
     .querySelector(`#match_${matchId}`)
-    .querySelector(".playerOneScore")
-    .querySelector(".scoreInput").value;
+    .querySelector(".playerOneScoreInput").value;
 
   let playerTwoScore = document
     .querySelector(`#match_${matchId}`)
-    .querySelector(".playerTwoScore")
-    .querySelector(".scoreInput").value;
+    .querySelector(".playerTwoScoreInput").value;
 
   document
     .querySelector(`#match_${matchId}`)
@@ -193,10 +218,25 @@ function editMatchScoreById(matchId) {
   document
     .querySelector(`#match_${matchId}`)
     .querySelector(".playerTwoScore").innerHTML = playerTwoScore;
+  document
+    .querySelector(`#match_${matchId}`)
+    .querySelector(".playerOneScore").style.display = "";
+  document
+    .querySelector(`#match_${matchId}`)
+    .querySelector(".playerTwoScore").style.display = "";
+  document
+    .querySelector(`#match_${matchId}`)
+    .querySelector(".playerOneScoreInput")
+    .remove();
+  document
+    .querySelector(`#match_${matchId}`)
+    .querySelector(".playerTwoScoreInput")
+    .remove();
 
   let infoForTable = updateMatchScore(matchId, playerOneScore, playerTwoScore);
   console.log(infoForTable);
   updateTable(infoForTable);
+  // }
 }
 
 function updateMatchScore(matchId, playerOneScore, playerTwoScore) {
