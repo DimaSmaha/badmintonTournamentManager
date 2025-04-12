@@ -10,7 +10,7 @@ export function generateTable() {
       "beforeend",
       `
     <tr id='row_${i + 1}'>
-       <td>${i + 1}</td>
+       <td class='place'>${i + 1}</td>
        <td id='${playersArr[i]}'>${playersArr[i]}</td>
        <td class='playerMatchScore'>${0}</td>
        <td class='pointsScore'>${0}</td>
@@ -40,6 +40,17 @@ function sortTable() {
       .querySelector("#playersScoreboard")
       .querySelector("tbody")
       .replaceChildren(...sortedTableRows);
+
+    let tablePlacesLength = document
+      .querySelector("#playersTableRows")
+      .querySelectorAll(".place").length;
+    for (let i = 0; i < tablePlacesLength; i++) {
+      let currentPlace = document
+        .querySelector("#playersTableRows")
+        .querySelectorAll(".place")[i];
+      currentPlace.innerText = "";
+      currentPlace.innerText = i + 1;
+    }
   }, 0);
 }
 // Generate for 2 matches tournament, with return match
