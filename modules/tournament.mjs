@@ -513,3 +513,35 @@ function resetCookieByMatchId(matchId) {
     setCookie("matchesData", dataObj);
   }
 }
+
+export function renderResultsIfExists() {
+  if (getCookie("matchesData")) {
+    let data = getCookie("matchesData");
+
+    for (let i = 0; i <= Object.keys(data).length; i++) {
+      console.log(data[`match_${1}`]);
+      if (data[`match_${i}`]) {
+        document
+          .querySelector(`#match_${i}`)
+          .querySelector(".playerOneScore").innerText = parseInt(
+          data[`match_${i}`].playerOneScore
+        );
+        document
+          .querySelector(`#match_${i}`)
+          .querySelector(".playerTwoScore").innerText = parseInt(
+          data[`match_${i}`].playerTwoScore
+        );
+        document.getElementById(`editMatch_${i}`).style.display = "none";
+        document.getElementById(`resetMatch_${i}`).style.display = "block";
+
+        const dataForTable = data[`match_${i}`];
+        updateTable(dataForTable);
+      }
+      continue;
+    }
+  }
+
+  if (!getCookie("matchesData")) {
+    return;
+  }
+}

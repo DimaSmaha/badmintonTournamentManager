@@ -6,7 +6,11 @@ import {
   getPlayersInputsValues,
   removePlayerInput,
 } from "./modules/playerInputs.mjs";
-import { generateMatches, generateTable } from "./modules/tournament.mjs";
+import {
+  generateMatches,
+  generateTable,
+  renderResultsIfExists,
+} from "./modules/tournament.mjs";
 
 window.onload = function () {
   if (document.title == "Generate Tournament") {
@@ -16,6 +20,7 @@ window.onload = function () {
   if (document.title == "Tournament") {
     generateTable();
     generateMatches();
+    renderResultsIfExists();
   }
 };
 
