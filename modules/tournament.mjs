@@ -280,10 +280,10 @@ function editMatchScoreById(matchId) {
 
   document
     .querySelector(`#match_${matchId}`)
-    .querySelector(".playerOneScore").innerHTML = playerOneScore;
+    .querySelector(".playerOneScore").innerHTML = parseInt(playerOneScore);
   document
     .querySelector(`#match_${matchId}`)
-    .querySelector(".playerTwoScore").innerHTML = playerTwoScore;
+    .querySelector(".playerTwoScore").innerHTML = parseInt(playerTwoScore);
   document
     .querySelector(`#match_${matchId}`)
     .querySelector(".playerOneScore").style.display = "";
