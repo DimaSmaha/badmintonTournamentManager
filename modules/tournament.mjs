@@ -1,6 +1,6 @@
 import { editBtnSvg } from "../const/editSvg.mjs";
 import locators from "../const/locators.mjs";
-import { getCookie } from "./cookies/cookies.mjs";
+import { getCookie, setCookie } from "./cookies/cookies.mjs";
 
 export function generateTable() {
   const playersArr = getCookie("tournamentPlayers");
@@ -314,36 +314,48 @@ function updateMatchScore(matchId, playerOneScore, playerTwoScore) {
     .querySelector(".player2").innerText;
 
   if (parseInt(playerOneScore) > parseInt(playerTwoScore)) {
-    return {
+    const matchData = {
+      matchId,
       playerOneName,
       playerTwoName,
-      playerOnePoints: "3",
-      playerTwoPoints: "0",
       playerOneScore,
       playerTwoScore,
+      playerOnePoints: "3",
+      playerTwoPoints: "0",
     };
+
+    updateMatchCookies(matchData);
+    return matchData;
   }
 
   if (parseInt(playerOneScore) < parseInt(playerTwoScore)) {
-    return {
+    const matchData = {
+      matchId,
       playerOneName,
       playerTwoName,
-      playerOnePoints: "0",
-      playerTwoPoints: "3",
       playerOneScore,
       playerTwoScore,
+      playerOnePoints: "0",
+      playerTwoPoints: "3",
     };
+
+    updateMatchCookies(matchData);
+    return matchData;
   }
 
   if (parseInt(playerOneScore) == parseInt(playerTwoScore)) {
-    return {
+    const matchData = {
+      matchId,
       playerOneName,
       playerTwoName,
-      playerOnePoints: "1",
-      playerTwoPoints: "1",
       playerOneScore,
       playerTwoScore,
+      playerOnePoints: "1",
+      playerTwoPoints: "1",
     };
+
+    updateMatchCookies(matchData);
+    return matchData;
   }
 }
 
@@ -358,6 +370,8 @@ function resetMatchScoreById(matchId) {
     .querySelector(`#match_${matchId}`)
     .querySelector(".playerTwoScore").innerHTML = 0;
   document.getElementById(`editMatch_${matchId}`).style.display = "block";
+
+  resetCookieByMatchId(matchId);
 }
 
 function updateResetMatchScoreById(matchId) {
@@ -466,4 +480,36 @@ function updateTable(infoForTable) {
   );
 
   sortTable();
+}
+
+function updateMatchCookies(data) {
+  if (!getCookie("matchesData")) {
+    setCookie("matchesData", {});
+  }
+
+  if (getCookie("matchesData")) {
+    let matchesInfoObj = getCookie("matchesData");
+
+    console.log(data);
+    matchesInfoObj[`match_${data.matchId}`] = {
+      playerOneName: data.playerOneName,
+      playerTwoName: data.playerTwoName,
+      playerOneScore: data.playerOneScore,
+      playerTwoScore: data.playerTwoScore,
+      playerOnePoints: data.playerOnePoints,
+      playerTwoPoints: data.playerTwoPoints,
+    };
+    setCookie("matchesData", matchesInfoObj);
+  }
+}
+
+function resetCookieByMatchId(matchId) {
+  if (getCookie("matchesData")) {
+    let dataObj = getCookie("matchesData");
+    console.log(dataObj);
+    delete dataObj[`match_${matchId}`];
+    console.log(dataObj);
+
+    setCookie("matchesData", dataObj);
+  }
 }
