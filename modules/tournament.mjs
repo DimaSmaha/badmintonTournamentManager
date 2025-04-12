@@ -15,6 +15,7 @@ export function generateTable() {
        <td class='playerMatchScore'>${0}</td>
        <td class='pointsScore'>${0}</td>
        <td class='pointsConceded'>${0}</td>
+       <td class='pointsDifference'>${0}</td>
     </tr>
     `
     );
@@ -29,9 +30,13 @@ function sortTable() {
   const tableRowsArr = [...tableRows];
   console.log(tableRowsArr);
 
-  const sortedTableRows = tableRowsArr.sort(
-    (a, b) => parseInt(b.cells[2].innerText) - parseInt(a.cells[2].innerText)
-  );
+  const sortedTableRows = tableRowsArr
+    .sort(
+      (a, b) => parseInt(b.cells[5].innerText) - parseInt(a.cells[5].innerText)
+    )
+    .sort(
+      (a, b) => parseInt(b.cells[2].innerText) - parseInt(a.cells[2].innerText)
+    );
 
   console.log(sortedTableRows);
 
@@ -424,6 +429,9 @@ function updateTable(infoForTable) {
     getPlayerOneCell.nextElementSibling.nextElementSibling;
   const getPlayerOnePointsCondenced =
     getPlayerOneCell.nextElementSibling.nextElementSibling.nextElementSibling;
+  const getPlayerOnePointsDifference =
+    getPlayerOneCell.nextElementSibling.nextElementSibling.nextElementSibling
+      .nextElementSibling;
 
   const getPlayerTwoCell = document
     .querySelector("#playersScoreboard")
@@ -434,6 +442,9 @@ function updateTable(infoForTable) {
     getPlayerTwoCell.nextElementSibling.nextElementSibling;
   const getPlayerTwoPointsCondenced =
     getPlayerTwoCell.nextElementSibling.nextElementSibling.nextElementSibling;
+  const getPlayerTwoPointsDifference =
+    getPlayerTwoCell.nextElementSibling.nextElementSibling.nextElementSibling
+      .nextElementSibling;
 
   const setNewScore = (el, newScore) =>
     (el.innerText = parseInt(el.innerText) + parseInt(newScore));
@@ -441,10 +452,18 @@ function updateTable(infoForTable) {
   setNewScore(getPlayerOneScore, data.playerOnePoints);
   setNewScore(getPlayerOnePointsScored, data.playerOneScore);
   setNewScore(getPlayerOnePointsCondenced, data.playerTwoScore);
+  setNewScore(
+    getPlayerOnePointsDifference,
+    parseInt(data.playerOneScore - data.playerTwoScore)
+  );
 
   setNewScore(getPlayerTwoScore, data.playerTwoPoints);
   setNewScore(getPlayerTwoPointsScored, data.playerTwoScore);
   setNewScore(getPlayerTwoPointsCondenced, data.playerOneScore);
+  setNewScore(
+    getPlayerTwoPointsDifference,
+    parseInt(data.playerTwoScore - data.playerOneScore)
+  );
 
   sortTable();
 }
