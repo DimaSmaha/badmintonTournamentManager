@@ -182,7 +182,7 @@ function renderMatchActionButtons() {
         .insertAdjacentHTML(
           "afterbegin",
           `
-            <input class="scoreInput playerOneScoreInput" value='${getInitPlayerOneScore}'>
+            <input class="scoreInput playerOneScoreInput" type='number' value='${getInitPlayerOneScore}'>
           `
         );
 
@@ -192,7 +192,7 @@ function renderMatchActionButtons() {
         .insertAdjacentHTML(
           "beforeend",
           `
-            <input class="scoreInput playerTwoScoreInput" value='${getInitialPlayerTwoScore}'>
+            <input class="scoreInput playerTwoScoreInput" type='number' value='${getInitialPlayerTwoScore}'>
           `
         );
     });
