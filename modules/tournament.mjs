@@ -1,5 +1,6 @@
 import { editBtnSvg } from "../const/editSvg.mjs";
 import locators from "../const/locators.mjs";
+import { showError } from "../const/showError.mjs";
 import { deleteCookie, getCookie, setCookie } from "./cookies/cookies.mjs";
 
 export function generateTable() {
@@ -277,6 +278,23 @@ function editMatchScoreById(matchId) {
   let playerTwoScore = document
     .querySelector(`#match_${matchId}`)
     .querySelector(".playerTwoScoreInput").value;
+
+  if (
+    playerOneScore < 11 &&
+    playerTwoScore < 11 &&
+    !(playerOneScore > 11 && playerTwoScore > 11)
+  ) {
+    showError(document.getElementById("wrongScoreError"));
+    setTimeout(() => {
+      document.getElementById(`acceptEditMatch_${matchId}`).style.display =
+        "block";
+      document.getElementById(`closeEditMatch_${matchId}`).style.display =
+        "block";
+      document.getElementById(`resetMatch_${matchId}`).style.display = "none";
+    }, 0);
+
+    return;
+  }
 
   document
     .querySelector(`#match_${matchId}`)
