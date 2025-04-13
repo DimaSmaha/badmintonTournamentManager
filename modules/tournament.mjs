@@ -1,6 +1,6 @@
 import { editBtnSvg } from "../const/editSvg.mjs";
 import locators from "../const/locators.mjs";
-import { getCookie, setCookie } from "./cookies/cookies.mjs";
+import { deleteCookie, getCookie, setCookie } from "./cookies/cookies.mjs";
 
 export function generateTable() {
   const playersArr = getCookie("tournamentPlayers");
@@ -544,4 +544,36 @@ export function renderResultsIfExists() {
   if (!getCookie("matchesData")) {
     return;
   }
+}
+
+export function resetTournamentData() {
+  document
+    .querySelector(`#resetTournamentDataBtn`)
+    .addEventListener("click", () => {
+      document.getElementById(`resetTournamentDataBtn`).style.display =
+        "inline";
+      document.getElementById(`acceptResetTournamentData`).style.display =
+        "inline";
+      document.getElementById(`closeResetTournamentData`).style.display =
+        "inline";
+    });
+
+  document
+    .querySelector("#acceptResetTournamentData")
+    .addEventListener("click", () => {
+      deleteCookie("matchesData");
+
+      window.location.reload();
+    });
+
+  document
+    .querySelector(`#closeResetTournamentData`)
+    .addEventListener("click", () => {
+      document.getElementById(`resetTournamentDataBtn`).style.display =
+        "inline";
+      document.getElementById(`acceptResetTournamentData`).style.display =
+        "none";
+      document.getElementById(`closeResetTournamentData`).style.display =
+        "none";
+    });
 }

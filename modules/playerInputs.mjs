@@ -1,6 +1,6 @@
 import locators from "../const/locators.mjs";
 import { showError } from "../const/showError.mjs";
-import { getCookie, setCookie } from "./cookies/cookies.mjs";
+import { deleteCookie, getCookie, setCookie } from "./cookies/cookies.mjs";
 
 export function continueTournamentIfExists() {
   console.log(getCookie("tournamentPlayers"));
@@ -12,6 +12,38 @@ export function continueTournamentIfExists() {
     <a href="./pages/tournament.html">Continue Tournament</a>
     `
     );
+  }
+}
+
+export function resetDataIfExists() {
+  if (getCookie("tournamentPlayers") || getCookie("matchesData")) {
+    locators.navbar.insertAdjacentHTML(
+      "beforeend",
+      `
+      <a href='#' id="resetDataBtn">Reset Tournament Data</a>
+      <button class='acceptBtn' id="acceptResetData">V</button>
+      <button class='cancelBtn' id="closeResetData">X</button>
+      `
+    );
+
+    document.querySelector(`#resetDataBtn`).addEventListener("click", () => {
+      document.getElementById(`resetDataBtn`).style.display = "inline";
+      document.getElementById(`acceptResetData`).style.display = "inline";
+      document.getElementById(`closeResetData`).style.display = "inline";
+    });
+
+    document.querySelector("#acceptResetData").addEventListener("click", () => {
+      deleteCookie("tournamentPlayers");
+      deleteCookie("matchesData");
+
+      window.location.reload();
+    });
+
+    document.querySelector(`#closeResetData`).addEventListener("click", () => {
+      document.getElementById(`resetDataBtn`).style.display = "inline";
+      document.getElementById(`acceptResetData`).style.display = "none";
+      document.getElementById(`closeResetData`).style.display = "none";
+    });
   }
 }
 
@@ -77,5 +109,6 @@ export function getPlayersInputsValues() {
   }
 
   setCookie("tournamentPlayers", inputValuesArr);
+  setCookie("matchesData", {});
   window.location.replace("../pages/tournament.html");
 }

@@ -7,3 +7,5 @@ export const setCookie = (cookieName, cookieValue) =>
   Cookies.set(`${cookieName}`, JSON.stringify(cookieValue), {
     expires: 365,
   });
+
+export const deleteCookie = (cookieName) => Cookies.remove(`${cookieName}`);
