@@ -1,5 +1,5 @@
-import locators from "../const/locators.mjs";
-import { showError } from "../const/showError.mjs";
+import locators from "./../const/locators.mjs";
+import { showError } from "./../const/showError.mjs";
 import { deleteCookie, getCookie, setCookie } from "./cookies/cookies.mjs";
 
 export function continueTournamentIfExists() {
@@ -114,5 +114,5 @@ export function getPlayersInputsValues() {
 
   setCookie("tournamentPlayers", inputValuesArr);
   setCookie("matchesData", {});
-  window.location.replace("../pages/tournament.html");
+  window.location.replace("./pages/tournament.html");
 }

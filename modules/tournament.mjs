@@ -1,6 +1,6 @@
-import { editBtnSvg } from "../const/editSvg.mjs";
-import locators from "../const/locators.mjs";
-import { showError } from "../const/showError.mjs";
+import { editBtnSvg } from "./../const/editSvg.mjs";
+import locators from "./../const/locators.mjs";
+import { showError } from "./../const/showError.mjs";
 import { deleteCookie, getCookie, setCookie } from "./cookies/cookies.mjs";
 
 export function generateTable() {
