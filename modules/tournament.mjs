@@ -12,7 +12,7 @@ export function generateTable() {
       `
     <tr id='row_${i + 1}'>
        <td class='place'>${i + 1}</td>
-       <td id='${playersArr[i]}'>${playersArr[i]}</td>
+       <td class='name' id='${playersArr[i]}'>${playersArr[i]}</td>
        <td class='playerMatchScore'>${0}</td>
        <td class='pointsScore'>${0}</td>
        <td class='pointsConceded'>${0}</td>
@@ -229,6 +229,9 @@ function renderMatchActionButtons() {
         document.getElementById(`acceptEditMatch_${i}`).style.display = "none";
         document.getElementById(`closeEditMatch_${i}`).style.display = "none";
         document.getElementById(`resetMatch_${i}`).style.display = "block";
+        setTimeout(() => {
+          checkCongratulateTheWinner();
+        }, 0);
       });
 
     document.querySelector(`#resetMatch_${i}`).addEventListener("click", () => {
@@ -557,6 +560,10 @@ export function renderResultsIfExists() {
       }
       continue;
     }
+
+    setTimeout(() => {
+      checkCongratulateTheWinner();
+    }, 0);
   }
 
   if (!getCookie("matchesData")) {
@@ -594,4 +601,65 @@ export function resetTournamentData() {
       document.getElementById(`closeResetTournamentData`).style.display =
         "none";
     });
+}
+
+let congratulatedFlag = false;
+
+function checkCongratulateTheWinner() {
+  if (getCookie("matchesData")) {
+    const data = getCookie("matchesData");
+    const finishedMatchesLength = Object.keys(data).length;
+    const totalMatchesLength =
+      document.querySelector("#playersMatches").children.length;
+
+    console.log(finishedMatchesLength, totalMatchesLength);
+
+    if (finishedMatchesLength == totalMatchesLength) {
+      congratulateTheWinner();
+    }
+  }
+}
+
+console.log("congratulatedFlag", congratulatedFlag);
+
+function congratulateTheWinner() {
+  const getFirstPlace = document.querySelector("#playersTableRows").children[0];
+  const getSecondPlace =
+    document.querySelector("#playersTableRows").children[1];
+  const getThirdPlace = document.querySelector("#playersTableRows").children[2];
+
+  function getPlayerData(playerFromTable) {
+    const getPlayerName = playerFromTable.querySelector(".name").innerText;
+    const getPlayerScore =
+      playerFromTable.querySelector(".playerMatchScore").innerText;
+    const getPlayerPointsDifference =
+      playerFromTable.querySelector(".pointsDifference").innerText;
+
+    return { getPlayerName, getPlayerScore, getPlayerPointsDifference };
+  }
+
+  const getFirstPlacePlayerInfo = getPlayerData(getFirstPlace);
+  const getSecondPlacePlayerInfo = getPlayerData(getSecondPlace);
+  const getThirdPlacePlayerInfo = getPlayerData(getThirdPlace);
+
+  const generateMessage = `
+  WINNER WINNER CHICKEN DINNER🎉🎉🎉
+
+  LETS CONGRATULATE THE WINNER OF THE TOURNAMENT - ${getFirstPlacePlayerInfo.getPlayerName}. 
+  He scored ${getFirstPlacePlayerInfo.getPlayerScore} points, and got ${getFirstPlacePlayerInfo.getPlayerPointsDifference} point difference.
+  WELL DONE
+
+  Also the honorable mension for our silver competiton - ${getSecondPlacePlayerInfo.getPlayerName}
+  Who scored ${getSecondPlacePlayerInfo.getPlayerScore} points, and got ${getSecondPlacePlayerInfo.getPlayerPointsDifference} point difference.
+
+  And lastly the bronze prize goes to - ${getThirdPlacePlayerInfo.getPlayerName}
+  Who scored ${getThirdPlacePlayerInfo.getPlayerScore} points, and got ${getThirdPlacePlayerInfo.getPlayerPointsDifference} point difference.
+  `;
+
+  if (congratulatedFlag == false) {
+    alert(generateMessage);
+    congratulatedFlag = true;
+  }
+
+  return;
 }
