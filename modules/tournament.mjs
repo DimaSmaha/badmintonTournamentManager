@@ -572,7 +572,7 @@ export function renderResultsIfExists() {
   }
 }
 
-export function resetTournamentData() {
+export function renderActionHeaderButtons() {
   document
     .querySelector(`#resetTournamentDataBtn`)
     .addEventListener("click", () => {
@@ -600,6 +600,38 @@ export function resetTournamentData() {
       document.getElementById(`acceptResetTournamentData`).style.display =
         "none";
       document.getElementById(`closeResetTournamentData`).style.display =
+        "none";
+    });
+
+  document
+    .querySelector(`#finishTournamentEarlyBtn`)
+    .addEventListener("click", () => {
+      document.getElementById(`finishTournamentEarlyBtn`).style.display =
+        "inline";
+      document.getElementById(`acceptFinishTournamentEarly`).style.display =
+        "inline";
+      document.getElementById(`closeFinishTournamentEarly`).style.display =
+        "inline";
+    });
+
+  document
+    .querySelector("#acceptFinishTournamentEarly")
+    .addEventListener("click", () => {
+      document.getElementById(`acceptFinishTournamentEarly`).style.display =
+        "none";
+      document.getElementById(`closeFinishTournamentEarly`).style.display =
+        "none";
+      congratulateTheWinner();
+    });
+
+  document
+    .querySelector(`#closeFinishTournamentEarly`)
+    .addEventListener("click", () => {
+      document.getElementById(`finishTournamentEarlyBtn`).style.display =
+        "inline";
+      document.getElementById(`acceptFinishTournamentEarly`).style.display =
+        "none";
+      document.getElementById(`closeFinishTournamentEarly`).style.display =
         "none";
     });
 }

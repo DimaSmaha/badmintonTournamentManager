@@ -10,8 +10,8 @@ import {
 import {
   generateMatches,
   generateTable,
+  renderActionHeaderButtons,
   renderResultsIfExists,
-  resetTournamentData,
 } from "./modules/tournament.mjs";
 
 window.onload = function () {
@@ -24,7 +24,7 @@ window.onload = function () {
     generateTable();
     generateMatches();
     renderResultsIfExists();
-    resetTournamentData();
+    renderActionHeaderButtons();
   }
 };
 

@@ -41,6 +41,10 @@
 .errorBox {
   margin-top: 8px;
 }
+.navbar a {
+  margin-bottom: 16px;
+  margin-right: 8px;
+}
 .navbar {
   margin-bottom: 16px;
 }

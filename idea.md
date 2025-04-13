@@ -12,8 +12,8 @@ Main features to do
 - Add validation for 11 points - V
 - Add validation for same player name - V
 - Congrats for the winner - V
-- Change validation through cookie -
-- Finish tournament before all matches ended -
+- Finish tournament before all matches ended - V
+- Change validation number of points through cookie -
 
 - \*Add,delete user during tournament
 - Rename user
