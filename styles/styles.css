@@ -131,3 +131,7 @@ th {
   height: 20px;
   width: 30px;
 }
+.minPointsInput {
+  display: none;
+  width: 50px;
+}

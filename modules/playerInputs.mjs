@@ -35,6 +35,7 @@ export function resetDataIfExists() {
     document.querySelector("#acceptResetData").addEventListener("click", () => {
       deleteCookie("tournamentPlayers");
       deleteCookie("matchesData");
+      deleteCookie("minPoints");
 
       window.location.reload();
     });

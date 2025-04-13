@@ -282,11 +282,18 @@ function editMatchScoreById(matchId) {
     .querySelector(`#match_${matchId}`)
     .querySelector(".playerTwoScoreInput").value;
 
+  let minPoints = getMinPointsCookie();
+
   if (
-    playerOneScore < 11 &&
-    playerTwoScore < 11 &&
-    !(playerOneScore > 11 && playerTwoScore > 11)
+    playerOneScore < minPoints &&
+    playerTwoScore < minPoints &&
+    !(playerOneScore > minPoints && playerTwoScore > minPoints)
   ) {
+    document.getElementById("wrongScoreErrorPoints").innerText = ``;
+    document.getElementById(
+      "wrongScoreErrorPoints"
+    ).innerText = ` ${minPoints} points`;
+
     showError(document.getElementById("wrongScoreError"));
     setTimeout(() => {
       document.getElementById(`acceptEditMatch_${matchId}`).style.display =
@@ -588,6 +595,7 @@ export function renderActionHeaderButtons() {
     .querySelector("#acceptResetTournamentData")
     .addEventListener("click", () => {
       deleteCookie("matchesData");
+      deleteCookie("minPoints");
 
       window.location.reload();
     });
@@ -633,6 +641,30 @@ export function renderActionHeaderButtons() {
         "none";
       document.getElementById(`closeFinishTournamentEarly`).style.display =
         "none";
+    });
+
+  document
+    .querySelector(`#changeMinPointsBtn`)
+    .addEventListener("click", () => {
+      document.getElementById(`changeMinPointsBtn`).style.display = "none";
+      document.getElementById(`changeMinPointsInput`).style.display = "inline";
+      document.getElementById(`acceptChangeMinPoints`).style.display = "inline";
+      document.getElementById(`closeChangeMinPoints`).style.display = "inline";
+    });
+
+  document
+    .querySelector("#acceptChangeMinPoints")
+    .addEventListener("click", () => {
+      changeMinPointsCookie();
+    });
+
+  document
+    .querySelector(`#closeChangeMinPoints`)
+    .addEventListener("click", () => {
+      document.getElementById(`changeMinPointsBtn`).style.display = "inline";
+      document.getElementById(`changeMinPointsInput`).style.display = "none";
+      document.getElementById(`acceptChangeMinPoints`).style.display = "none";
+      document.getElementById(`closeChangeMinPoints`).style.display = "none";
     });
 }
 
@@ -695,4 +727,51 @@ function congratulateTheWinner() {
   }
 
   return;
+}
+
+export function setMinPointsCookie() {
+  if (!getCookie("minPoints")) {
+    const minPoints = 11;
+
+    setCookie("minPoints", minPoints);
+  }
+
+  return;
+}
+
+function getMinPointsCookie() {
+  if (getCookie("minPoints")) {
+    const getMinPoints = getCookie("minPoints");
+
+    return parseInt(getMinPoints);
+  }
+  return 11;
+}
+
+function changeMinPointsCookie() {
+  if (getCookie("minPoints")) {
+    const getNewPointsInputValue = document.getElementById(
+      "changeMinPointsInput"
+    ).value;
+
+    if (getNewPointsInputValue < 1 || getNewPointsInputValue == "") {
+      document.getElementById("changeMinPointsInput").value = "";
+      showError(document.getElementById("wrongMinPointsMin"));
+      return;
+    }
+    if (getNewPointsInputValue >= 22) {
+      document.getElementById("changeMinPointsInput").value = "";
+      showError(document.getElementById("wrongMinPointsMax"));
+      return;
+    }
+
+    if (typeof parseInt(getNewPointsInputValue) == "number") {
+      setCookie("minPoints", parseInt(getNewPointsInputValue));
+      showError(document.getElementById("newMinPointsAdded"));
+      document.getElementById(`changeMinPointsBtn`).style.display = "inline";
+      document.getElementById(`changeMinPointsInput`).style.display = "none";
+      document.getElementById(`acceptChangeMinPoints`).style.display = "none";
+      document.getElementById(`closeChangeMinPoints`).style.display = "none";
+    }
+  }
 }

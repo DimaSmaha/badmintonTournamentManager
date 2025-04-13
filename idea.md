@@ -13,7 +13,8 @@ Main features to do
 - Add validation for same player name - V
 - Congrats for the winner - V
 - Finish tournament before all matches ended - V
-- Change validation number of points through cookie -
+- Change validation number of points through cookie - V
+- Zeroes in inputs?
 
 - \*Add,delete user during tournament
 - Rename user

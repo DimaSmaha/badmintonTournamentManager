@@ -18,6 +18,19 @@
       <a href="#" id="finishTournamentEarlyBtn">Finish Tournament Early</a>
       <button class="acceptBtn" id="acceptFinishTournamentEarly">V</button>
       <button class="cancelBtn" id="closeFinishTournamentEarly">X</button>
+      <a href="#" id="changeMinPointsBtn">Change Min Points</a>
+      <input class="minPointsInput" id="changeMinPointsInput" type="number" />
+      <button class="acceptBtn" id="acceptChangeMinPoints">V</button>
+      <button class="cancelBtn" id="closeChangeMinPoints">X</button>
+      <p class="error" id="wrongMinPointsMin" style="display: none">
+        <b> The minimum points should be positive and more than 1 </b>
+      </p>
+      <p class="error" id="wrongMinPointsMax" style="display: none">
+        <b> The minimum points should be not more than 21 </b>
+      </p>
+      <p id="newMinPointsAdded" style="display: none; color: green">
+        <b> The new minimum points added successfully</b>
+      </p>
     </div>
     <div id="playersScoreboard">
       <h2>Scoreboard</h2>
@@ -41,7 +54,8 @@
         If the result is tie, then the rematch will be considered
       </p>
       <p class="error" id="wrongScoreError" style="display: none">
-        <b> The minimum score for winning player should be atleast 11 </b>
+        <b> The minimum score for winning player should be atleast</b
+        ><b id="wrongScoreErrorPoints"></b>
       </p>
     </div>
     <div id="playersMatches"></div>

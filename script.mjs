@@ -12,6 +12,7 @@ import {
   generateTable,
   renderActionHeaderButtons,
   renderResultsIfExists,
+  setMinPointsCookie,
 } from "./modules/tournament.mjs";
 
 window.onload = function () {
@@ -25,6 +26,7 @@ window.onload = function () {
     generateMatches();
     renderResultsIfExists();
     renderActionHeaderButtons();
+    setMinPointsCookie();
   }
 };
 
