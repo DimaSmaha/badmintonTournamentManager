@@ -14,7 +14,7 @@ Main features to do
 - Congrats for the winner - V
 - Finish tournament before all matches ended - V
 - Change validation number of points through cookie - V
-- Zeroes in inputs?
+- Zeroes in inputs - V. We need them for more safety
 
 - \*Add,delete user during tournament
 - Rename user

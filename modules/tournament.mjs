@@ -173,6 +173,12 @@ function renderMatchActionButtons() {
       const getInitPlayerOneScore = parseInt(getPlayerOneScore.innerText);
       const getInitialPlayerTwoScore = parseInt(getPlayerTwoScore.innerText);
 
+      // To make inputs clear
+      // if (getInitPlayerOneScore == 0 && getInitialPlayerTwoScore == 0) {
+      //   getInitPlayerOneScore = "";
+      //   getInitialPlayerTwoScore = "";
+      // }
+
       getPlayerOneScore.style.display = "none";
       getPlayerTwoScore.style.display = "none";
 
