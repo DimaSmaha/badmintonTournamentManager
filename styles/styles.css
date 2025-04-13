@@ -96,6 +96,9 @@ th {
 .score {
   font-weight: bold;
   font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 .player1,
 .player2,
