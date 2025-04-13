@@ -561,6 +561,7 @@ export function renderResultsIfExists() {
       continue;
     }
 
+    // if you dont want to see the alert after each tournament page visit or reload, simply comment
     setTimeout(() => {
       checkCongratulateTheWinner();
     }, 0);
