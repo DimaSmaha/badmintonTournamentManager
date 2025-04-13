@@ -697,7 +697,11 @@ function congratulateTheWinner() {
   const getFirstPlace = document.querySelector("#playersTableRows").children[0];
   const getSecondPlace =
     document.querySelector("#playersTableRows").children[1];
-  const getThirdPlace = document.querySelector("#playersTableRows").children[2];
+
+  let getThirdPlace;
+  if (document.querySelector("#playersTableRows").children.length >= 3) {
+    getThirdPlace = document.querySelector("#playersTableRows").children[2];
+  }
 
   function getPlayerData(playerFromTable) {
     const getPlayerName = playerFromTable.querySelector(".name").innerText;
@@ -711,9 +715,13 @@ function congratulateTheWinner() {
 
   const getFirstPlacePlayerInfo = getPlayerData(getFirstPlace);
   const getSecondPlacePlayerInfo = getPlayerData(getSecondPlace);
-  const getThirdPlacePlayerInfo = getPlayerData(getThirdPlace);
 
-  const generateMessage = `
+  let getThirdPlacePlayerInfo;
+  if (document.querySelector("#playersTableRows").children.length >= 3) {
+    getThirdPlacePlayerInfo = getPlayerData(getThirdPlace);
+  }
+
+  let generateMessage = `
   WINNER WINNER CHICKEN DINNER🎉🎉🎉
 
   LETS CONGRATULATE THE WINNER OF THE TOURNAMENT - ${getFirstPlacePlayerInfo.getPlayerName}. 
@@ -722,10 +730,14 @@ function congratulateTheWinner() {
 
   Also the honorable mension for our silver competiton - ${getSecondPlacePlayerInfo.getPlayerName}
   Who scored ${getSecondPlacePlayerInfo.getPlayerScore} points, and got ${getSecondPlacePlayerInfo.getPlayerPointsDifference} point difference.
+  `;
 
+  if (document.querySelector("#playersTableRows").children.length >= 3) {
+    generateMessage += `
   And lastly the bronze prize goes to - ${getThirdPlacePlayerInfo.getPlayerName}
   Who scored ${getThirdPlacePlayerInfo.getPlayerScore} points, and got ${getThirdPlacePlayerInfo.getPlayerPointsDifference} point difference.
   `;
+  }
 
   if (congratulatedFlag == false) {
     alert(generateMessage);
