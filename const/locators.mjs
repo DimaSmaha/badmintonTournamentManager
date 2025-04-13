@@ -12,6 +12,9 @@ class Locators {
     this.navbar = document.querySelector(".navbar");
     this.playersTableRows = document.querySelector("#playersTableRows");
     this.playersMatches = document.querySelector("#playersMatches");
+    this.canNotHaveTheSameName = document.querySelector(
+      "#canNotHaveTheSameName"
+    );
   }
 }
 

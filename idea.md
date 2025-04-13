@@ -10,7 +10,8 @@ Main features to do
 - Add reset cookies btn - V
 - Add reset cookies if we start new tournament - V
 - Add validation for 11 points - V
-- Add validation for same player name -
+- Change validation through cookie -
+- Add validation for same player name - V
 - Congrats for the winner -
 - Finish tournament before all matches ended -
 
